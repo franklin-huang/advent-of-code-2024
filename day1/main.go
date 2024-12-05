@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encoding/csv"
+	"adventofcode2024/internal/utils"
 	"fmt"
 	"log"
 	"os"
@@ -10,22 +10,6 @@ import (
 	"strconv"
 	"strings"
 )
-
-func readInput(filePathStr string) [][]string {
-	f, err := os.Open(filePathStr)
-	if err != nil {
-		log.Fatal("unable to open file", err)
-	}
-	defer f.Close()
-
-	csvReader := csv.NewReader(f)
-	records, err := csvReader.ReadAll()
-	if err != nil {
-		log.Fatal("unable to read csv", err)
-	}
-
-	return records
-}
 
 func parseData(data [][]string) (left []int, right []int) {
 	left = make([]int, len(data))
@@ -98,7 +82,7 @@ func main() {
 		log.Fatal("unable to get current working directory", err)
 	}
 
-	data := readInput(path.Join(dir, "day1/input.csv"))
+	data := utils.ReadInput(path.Join(dir, "day1/input.csv"))
 	left, right := parseData(data)
 	slices.Sort(left)
 	slices.Sort(right)
